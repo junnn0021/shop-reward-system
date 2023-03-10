@@ -3,21 +3,12 @@ const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider();
 const userPoolId = process.env.USERPOOL;
 
 exports.handler = async (event) => {
-  const name = event.body.name;
-  console.log(name)
+  const email = event.body.email;
+  console.log(email)
   const params = {
     UserPoolId: userPoolId,
-    Filter: `name = "${name}"`
+    Filter: `email = "${email}"`
   };
-
-  const result = await cognito.initiateAuth({
-    AuthFlow: 'USER_PASSWORD_AUTH',
-    ClientId: clientId,
-    AuthParameters: {
-      name: requestBody.username,
-      PASSWORD: requestBody.password
-    }
-  }).promise();
 
   try {
     const data = await cognitoIdentityServiceProvider.listUsers(params).promise();
@@ -25,12 +16,12 @@ exports.handler = async (event) => {
     if (data.Users.length > 0) {
       return {
         statusCode: 200,
-        body: "인증에 성공하셨습니다." + JSON.stringify(result.AuthenticationResult.AccessToken)
+        body: '인증에 성공하셨습니다.'
       };
     } else {
       return {
         statusCode: 404,
-        body: 'Name does not exist in Cognito User Pool'
+        body: '인증에 실패하셨습니다.'
       };
     }
   } catch (err) {
