@@ -1,4 +1,4 @@
-service: testcognito
+service: cognito-auth
 frameworkVersion: '3'
 
 provider:
