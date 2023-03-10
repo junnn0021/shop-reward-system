@@ -12,9 +12,22 @@ CREATE TABLE `User` (
     `User_Id` INT NOT NULL ,
     `User_Email` varchar(100)  NOT NULL ,
     `Attendance_Day` INT  NOT NULL ,
+    `Reward_Name` varchar(100),
     PRIMARY KEY (User_Email) ,
     FOREIGN KEY (Attendance_Day) REFERENCES Reward (Reward_Attendance_Day)
 );
+
+//  수령 테이블
+CREATE TABLE `Receipt` (
+    `Receipt_Id` INT NOT NULL,
+    `Receipt_Email` varchar(100) NOT NULL ,
+    `Receipt_Name` varchar(100) NOT NULL ,
+     PRIMARY KEY (Receipt_Id)
+     FOREIGN KEY (Receipt_Email) REFERENCES User (User_Email)
+);
+
+// 수령 테이블 데이터
+INSERT INTO Receipt (Receipt_ID, Receipt_Email, Receipt_Name) VALUES (1,'junnn0021@gmail.com','에어팟 프로 1세대')
 
 // 보상 테이블 데이터
 INSERT INTO Reward (Reward_id, Reward_Name, Reward_Count, Reward_Attendance_Day) VALUES('reward_1','츄파츕스',200,1);
@@ -33,14 +46,18 @@ INSERT INTO Reward (Reward_id, Reward_Name, Reward_Count, Reward_Attendance_Day)
 INSERT INTO Reward (Reward_id, Reward_Name, Reward_Count, Reward_Attendance_Day) VALUES('reward_14','아이패드 10세대',50,14);
 
 // 유저 테이블 데이터
-INSERT INTO User (User_Id, User_Email, Attendance_Day) VALUES(1,'leeih10@gmail.com',6);
-INSERT INTO User (User_Id, User_Email, Attendance_Day) VALUES(2,'vhxh20778@gmail.com',7);
-INSERT INTO User (User_Id, User_Email, Attendance_Day) VALUES(3,'junnn0021@gmail.com',13);
-INSERT INTO User (User_Id, User_Email, Attendance_Day) VALUES(4,'style056811@gmail.com',12);
+INSERT INTO User (User_Id, User_Email, Attendance_Day, Reward_Name) VALUES(1,'leeih10@gmail.com',6,'샤오미 무선 보조 배터리');
+INSERT INTO User (User_Id, User_Email, Attendance_Day, Reward_Name) VALUES(2,'vhxh20778@gmail.com',7,'');
+INSERT INTO User (User_Id, User_Email, Attendance_Day, Reward_Name) VALUES(3,'junnn0021@gmail.com',13,'에어팟 프로 1세대');
+INSERT INTO User (User_Id, User_Email, Attendance_Day, Reward_Name) VALUES(4,'style056811@gmail.com',12,'');
 
-
-
-// 고객이 자신의 출석일수에 맞게 뭘 수령할 수 있는지 조회쿼리.
-select *
+// 고객이 자신의 출석일수에 맞게 뭘 수령할 수 있는지 조회 쿼리.
+select User_Email, Attendance_Day, Reward.Reward_Name
 from User
 JOIN Reward ON User.Attendance_Day = Reward.Reward_Attendance_Day;
+
+// 리워드 상품 조회 쿼리.
+select * from Reward;
+
+// 수령한 상품 조회 쿼리.
+select * from Receipt;
