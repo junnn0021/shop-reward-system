@@ -1,0 +1,11 @@
+service: testcognito
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-northeast-2
+
+functions:
+  function1:
+    handler: index.handler
