@@ -1,3 +1,58 @@
+쇼핑몰 DB
+
+//고객 테이블 생성
+CREATE TABLE `Customer` (
+    `Customer_Id` varchar(100) NOT NULL ,
+    `Customer_Name` varchar(100)  NOT NULL ,
+    `Customer_Email` varchar(100)  NOT NULL ,
+    PRIMARY KEY ( Customer_Email )
+);
+
+// 고객 테이블 샘플 데이터
+INSERT INTO Customer (Customer_Id, Customer_Name, Customer_Email) VALUES ('C1','현수빈','vhxh20778@naver.com');
+INSERT INTO Customer (Customer_Id, Customer_Name, Customer_Email) VALUES ('C2','손동훈','style056811@gmail.com');
+INSERT INTO Customer (Customer_Id, Customer_Name, Customer_Email) VALUES ('C3','이인홍','leeih10@gmail.com');
+INSERT INTO Customer (Customer_Id, Customer_Name, Customer_Email) VALUES ('C4','이준석','junnn0021@gmail.com');
+
+
+// 제품 테이블 생성
+CREATE TABLE `Product` (
+    `Product_Id` varchar(100) NOT NULL ,
+    `Product_Name` varchar(100)  NOT NULL ,
+    PRIMARY KEY ( Product_Id )
+);
+
+// 제품 테이블 샘플 데이터
+INSERT INTO Product (Product_Id, Product_Name) VALUES('P1','맥북 프로');
+INSERT INTO Product (Product_Id, Product_Name) VALUES('P2','에어팟 맥스');
+INSERT INTO Product (Product_Id, Product_Name) VALUES('P3','Play Station 5');
+INSERT INTO Product (Product_Id, Product_Name) VALUES('P4','제네시스 GV80');
+
+// 구매내역 테이블 생성
+CREATE TABLE `Purchasedetails` (
+    `Purchasedetails_id` varchar(100) NOT NULL ,
+    `Customer_Email` varchar(100)  NOT NULL ,
+    `Product_Id` varchar(100)  NOT NULL ,
+    PRIMARY KEY ( Purchasedetails_id ),
+    FOREIGN KEY (Customer_Email) REFERENCES Customer (Customer_Email),
+    FOREIGN KEY (Product_Id) REFERENCES Product (Product_Id)
+);
+
+// 구매내역 테이블 샘플 데이터
+INSERT INTO Purchasedetails (Purchasedetails_id, Customer_Email, Product_Id) VALUES('Purchase1','leeih10@gmail.com','P1');
+INSERT INTO Purchasedetails (Purchasedetails_id, Customer_Email, Product_Id) VALUES('Purchase2','junnn0021@gmail.com','P4');
+INSERT INTO Purchasedetails (Purchasedetails_id, Customer_Email, Product_Id) VALUES('Purchase3','style056811@gmail.com','P3');
+INSERT INTO Purchasedetails (Purchasedetails_id, Customer_Email, Product_Id) VALUES('Purchase4','vhxh20778@naver.com','P2');
+
+
+// 구매내역 조회 테이블
+select Purchasedetails_id, Customer_Email, Purchasedetails.Product_Id, Product.Product_Name
+from Purchasedetails
+JOIN Product ON Purchasedetails.Product_Id = Product.Product_Id;
+
+
+출석, 리워드, 보상 DB
+
 // 보상 테이블 생성
 CREATE TABLE `Reward` (
     `Reward_Id` varchar(100) NOT NULL ,
@@ -61,3 +116,4 @@ select * from Reward;
 
 // 수령한 상품 조회 쿼리.
 select * from Receipt;
+
