@@ -29,7 +29,7 @@ exports.handler = async (event) => {
     } else {
       return {
         statusCode: 404,
-        body: '인증에 실패하셨습니다.'
+        body: '이메일 인증에 실패하셨습니다.'
       };
     }
   } catch (err) {
