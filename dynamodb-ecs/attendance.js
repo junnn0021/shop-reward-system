@@ -8,7 +8,7 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 fastify.get('/', async (request, reply) => {
   const params = {
     TableName: 'user',
-    KeyConditionExpression: 'EMAIL = :email',
+    KeyConditionExpression: 'email = :email',
     ExpressionAttributeValues: {
         ':email': 'aaa@bbb.ccc'
     }
@@ -23,12 +23,12 @@ try {
     }
 });
 
-fastify.get('/attendancy', async (request, reply) => {
+fastify.get('/attendance', async (request, reply) => {
     const email = 'aaa@bbb.ccc';
   
     const getParams = {
       TableName: 'user',
-      Key: { EMAIL: email }
+      Key: { email: email }
     };
     let userData = null;
     try {
@@ -41,14 +41,14 @@ fastify.get('/attendancy', async (request, reply) => {
     }
   
     const today = new Date().toISOString().slice(0, 10);
-    const lastAttendanceDate = (userData && userData.LAST_ATTENDANCE_DATE) || '';
+    const lastAttendanceDate = (userData && userData.last_attnedance_count) || '';
   
     if (lastAttendanceDate !== today) {
-      const attendanceCount = (userData && userData.ATTENDANCE_COUNT) || 0;
+      const attendanceCount = (userData && userData.attendance_count) || 0;
       const updateParams = {
         TableName: 'user',
-        Key: { EMAIL: email },
-        UpdateExpression: 'SET ATTENDANCE_COUNT = :attendanceCount, LAST_ATTENDANCE_DATE = :today',
+        Key: { email: email },
+        UpdateExpression: 'SET attendance_count = :attendanceCount, last_attnedance_count = :today',
         ExpressionAttributeValues: {
           ':attendanceCount': attendanceCount + 1,
           ':today': today
