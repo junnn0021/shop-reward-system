@@ -7,7 +7,7 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 
 fastify.get('/reward', async (request, reply) => {
   const params = {
-    TableName: 'reward_2',
+    TableName: 'reward',
     KeyConditionExpression: 'reward_number = :reward_number',
     ExpressionAttributeValues: {
       ':reward_number': '1'
