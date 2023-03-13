@@ -1,4 +1,4 @@
-service: cognito-auth
+service: purchase-auth
 frameworkVersion: '3'
 
 provider:
@@ -7,5 +7,9 @@ provider:
   region: ap-northeast-2
 
 functions:
-  function1:
+  api:
     handler: index.handler
+    events:
+      - httpApi:
+          path: /
+          method: ANY
