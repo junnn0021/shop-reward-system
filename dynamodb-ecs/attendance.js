@@ -23,7 +23,7 @@ fastify.get('/', async (request, reply) => {
   }
 });
 
-fastify.get('/attendance', async (request, reply) => {
+fastify.get('/compensation', async (request, reply) => {
   const email = 'aaa@bbb.ccc';
 
   const getParams = {
@@ -81,6 +81,36 @@ fastify.get('/attendance', async (request, reply) => {
           };
 
           await docClient.update(rewardUpdateParams).promise();
+
+          // Check if user is eligible for compensation
+          const compensationTable = 'compensation';
+          const rewardName = rewardResult.Item.reward_name;
+          const compensationGetParams = {
+            TableName: compensationTable,
+            Key: { email: email }
+          };
+
+          try {
+            const compensationResult = await docClient.get(compensationGetParams).promise();
+            if (compensationResult.Item && compensationResult.Item.attendance_date === today) {
+              reply.send(`${email}님은 오늘 이미 출석하셨습니다.`);
+            } else {
+              const compensationPutParams = {
+                TableName: compensationTable,
+                Item: {
+                  email: email,
+                  reward_name: rewardName,
+                  attendance_date: today
+                }
+              };
+
+              await docClient.put(compensationPutParams).promise();
+              reply.send(`${email}님의 출석 보상 ${rewardName}이(가) 지급되었습니다.`);
+            }
+          } catch (error) {
+            console.error(error);
+            reply.code(500).send('Internal Server Error');
+          }
         }
       } catch (error) {
         console.error(error);
