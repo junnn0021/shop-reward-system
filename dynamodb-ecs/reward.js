@@ -7,14 +7,11 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 
 fastify.get('/reward', async (request, reply) => {
   const params = {
-    TableName: 'reward_2',
-    KeyConditionExpression: 'reward_number = :reward_number',
-    ExpressionAttributeValues: {
-      ':reward_number': '1'
-    }};
+    TableName: 'reward',
+    };
     
 try {
-  const data = await docClient.query(params).promise();
+  const data = await docClient.scan(params).promise();
     reply
     .code(200)
     .header('Content-type', 'application/json')
