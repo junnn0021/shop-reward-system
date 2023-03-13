@@ -41,14 +41,14 @@ fastify.get('/attendance', async (request, reply) => {
     }
   
     const today = new Date().toISOString().slice(0, 10);
-    const lastAttendanceDate = (userData && userData.last_attnedance_count) || '';
+    const lastAttendanceDate = (userData && userData.last_attendance_count) || '';
   
     if (lastAttendanceDate !== today) {
       const attendanceCount = (userData && userData.attendance_count) || 0;
       const updateParams = {
         TableName: 'user',
         Key: { email: email },
-        UpdateExpression: 'SET attendance_count = :attendanceCount, last_attnedance_count = :today',
+        UpdateExpression: 'SET attendance_count = :attendanceCount, last_attendance_count = :today',
         ExpressionAttributeValues: {
           ':attendanceCount': attendanceCount + 1,
           ':today': today
