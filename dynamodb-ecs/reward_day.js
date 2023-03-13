@@ -10,45 +10,47 @@ fastify.get('/reward_day', async (request, reply) => {
       TableName: 'user',
       KeyConditionExpression: 'email = :email',
       ExpressionAttributeValues: {
-        ':email': 'aaa@bbb.ccc'
+          ':email': 'aaa@bbb.ccc'
       }
     };
-  
+
     try {
       const data = await docClient.query(params).promise();
       const user = data.Items[0];
-  
+        console.log(user)
       const rewardsParams = {
         TableName: 'reward',
         FilterExpression: 'attendance_date = :attendance_date',
         ExpressionAttributeValues: {
-          ':attendance_date': user.attendance_count
+          ':attendance_date': (user.attendance_count)
         }
       };
-  
+
       const rewardsData = await docClient.scan(rewardsParams).promise();
       const reward = rewardsData.Items.find(item => item.attendance_date === user.attendance_count);
       const rewardName = reward ? reward.reward_name : 'no reward found';
-  
-      const nextRewardsParams = {
+
+      const nextrewardsParams = {
         TableName: 'reward',
         FilterExpression: 'attendance_date = :attendance_date',
         ExpressionAttributeValues: {
-          ':attendance_date': user.attendance_count + 1
+          ':attendance_date': (user.attendance_count+1)
         }
       };
-  
-      const nextRewardsData = await docClient.scan(nextRewardsParams).promise();
-      const nextReward = nextRewardsData.Items.find(item => item.attendance_date === user.attendance_count + 1);
-      const nextRewardName = nextReward ? nextReward.reward_name : 'no reward found';
-  
-      reply.send(`${user.email}님의 출석일수는 ${user.attendance_count}일이며, 보상은 ${rewardName}입니다. 다음 출석 시 받을 보상은 ${nextRewardName}입니다.`);
+
+      const nextrewardsData = await docClient.scan(nextrewardsParams).promise();
+      const nextreward = nextrewardsData.Items.find(item => item.attendance_date === user.attendance_count + 1);
+      const nextrewardName = nextreward ? nextreward.reward_name : 'no reward found';
+
+
+      reply.send(`${user.email}님의 출석일수는 ${user.attendance_count}일이며, 보상은 ${rewardName}입니다. 
+      다음 보상은 ${nextrewardName} 입니다.`);
     } catch (error) {
       console.error(error);
       reply.code(500).send('Internal Server Error');
     }
   });
-  
+
   fastify.listen({
     port: 3000,
     host: '0.0.0.0'
