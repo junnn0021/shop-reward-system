@@ -85,7 +85,7 @@ fastify.get('/compensation', async (request, reply) => {
       
           if (rewardResult.Item.reward_count <= 25) {
             const SNS = new AWS.SNS();
-            const topicArn = 'arn:aws:sns:ap-northeast-2:758733530144:stock_notification';
+            const topicArn = 'arn주소입력';
             const message = `${rewardResult.Item.reward_name} 보상이 부족합니다. 현재 보유 개수: ${rewardResult.Item.reward_count-1}`;
             const params = {
               TopicArn: topicArn,
