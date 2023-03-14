@@ -11,7 +11,7 @@ fastify.get('/', async (request, reply) => {
     TableName: 'user',
     KeyConditionExpression: 'email = :email',
     ExpressionAttributeValues: {
-    ':email': 'aaa@bbb.com'
+    ':email': 'aaa@bbb.ccc'
     }
   };
 
@@ -25,7 +25,7 @@ fastify.get('/', async (request, reply) => {
 });
 
 fastify.get('/compensation', async (request, reply) => {
-  const email = 'aa@bbb.com';
+  const email = 'aaa@bbb.ccc';
 
   const getParams = {
     TableName: 'user',
@@ -85,7 +85,7 @@ fastify.get('/compensation', async (request, reply) => {
       
           if (rewardResult.Item.reward_count <= 25) {
             const SNS = new AWS.SNS();
-            const topicArn = 'arn 주소 입력하세요.';
+            const topicArn = 'arn:aws:sns:ap-northeast-2:758733530144:stock_notification';
             const message = `${rewardResult.Item.reward_name} 보상이 부족합니다. 현재 보유 개수: ${rewardResult.Item.reward_count-1}`;
             const params = {
               TopicArn: topicArn,
@@ -97,27 +97,29 @@ fastify.get('/compensation', async (request, reply) => {
           // Check if user is eligible for compensation
           const compensationTable = 'compensation';
           const rewardName = rewardResult.Item.reward_name;
+          const now = new Date();
+          const today = now.toISOString().substr(0, 10);
           const compensationGetParams = {
             TableName: compensationTable,
             Key: { email: email }
           };
-      
+          
           try {
             const compensationResult = await docClient.get(compensationGetParams).promise();
             if (compensationResult.Item && compensationResult.Item.attendance_date === today) {
               reply.send(`${email}님은 오늘 이미 출석하셨습니다.`);
             } else {
-              const compensationPutParams = {
+              const attendanceSetParams = {
                 TableName: compensationTable,
-                Item: {
-                  email: email,
-                  reward_name: rewardName,
-                  attendance_date: today
-                }
+                Key: { email: email },
+                UpdateExpression: 'ADD reward_name :r SET attendance_date = :a',
+                ExpressionAttributeValues: {
+                  ':r': docClient.createSet([rewardName]),
+                  ':a': today
+                },
+                ReturnValues: 'UPDATED_NEW'
               };
-      
-
-              await docClient.put(compensationPutParams).promise();
+              await docClient.update(attendanceSetParams).promise();
               reply.send(`${email}님의 출석 보상 ${rewardName}이(가) 지급되었습니다.`);
             }
           } catch (error) {
