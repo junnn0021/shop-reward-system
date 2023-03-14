@@ -11,7 +11,7 @@ fastify.get('/', async (request, reply) => {
     TableName: 'user',
     KeyConditionExpression: 'email = :email',
     ExpressionAttributeValues: {
-    ':email': 'vhxh20778@naver.com'
+    ':email': 'aaa@bbb.com'
     }
   };
 
@@ -25,7 +25,7 @@ fastify.get('/', async (request, reply) => {
 });
 
 fastify.get('/compensation', async (request, reply) => {
-  const email = 'vhxh20778@naver.com';
+  const email = 'aa@bbb.com';
 
   const getParams = {
     TableName: 'user',
@@ -85,7 +85,7 @@ fastify.get('/compensation', async (request, reply) => {
       
           if (rewardResult.Item.reward_count <= 25) {
             const SNS = new AWS.SNS();
-            const topicArn = 'arn:aws:sns:ap-northeast-2:758733530144:stock_notification';
+            const topicArn = 'arn 주소 입력하세요.';
             const message = `${rewardResult.Item.reward_name} 보상이 부족합니다. 현재 보유 개수: ${rewardResult.Item.reward_count-1}`;
             const params = {
               TopicArn: topicArn,
