@@ -5,6 +5,7 @@ AWS.config.update({
     });
 const docClient = new AWS.DynamoDB.DocumentClient();
 
+module.exports = async function (fastify, options) {
 fastify.get('/reward', async (request, reply) => {
   const params = {
     TableName: 'reward',
@@ -23,13 +24,14 @@ try {
 });
 
 
-fastify.listen({
-    port: 3000,
-    host: '0.0.0.0'
-  }, (err, address) => {
-    if (err) {
-      console.error(err)
-      process.exit(1)
-    }
-    console.log(`Server listening on ${address}`)
-  })
+// fastify.listen({
+//     port: 3000,
+//     host: '0.0.0.0'
+//   }, (err, address) => {
+//     if (err) {
+//       console.error(err)
+//       process.exit(1)
+//     }
+//     console.log(`Server listening on ${address}`)
+//   })
+}
