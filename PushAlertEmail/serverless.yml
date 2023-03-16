@@ -1,9 +1,9 @@
-service: cognito-auth
+service: PushAlertEmail
 frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs18.x
   region: ap-northeast-2
 
 functions:

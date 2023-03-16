@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/junnn0021/devops-03-Final-TeamD#readme",
   "dependencies": {
-    "aws-sdk": "^2.1332.0"
+    "aws-sdk": "^2.1332.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.2.0"
   }
 }
