@@ -6,14 +6,16 @@ AWS.config.update({
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports = async function (fastify, options) {
+
 fastify.get('/', async (request, reply) => {
   const params = {
     TableName: 'user',
     KeyConditionExpression: 'email = :email',
     ExpressionAttributeValues: {
-      ':email': 'aaa@bbb.ccc'
+    ':email': request.query.Customer_Email
     }
   };
+  console.log(params)
 
   try {
     const data = await docClient.query(params).promise();
@@ -25,7 +27,7 @@ fastify.get('/', async (request, reply) => {
 });
 
 fastify.get('/compensation', async (request, reply) => {
-  const email = 'aaa@bbb.ccc';
+  const email = request.query.Customer_Email;
 
   const getParams = {
     TableName: 'user',
@@ -80,32 +82,46 @@ fastify.get('/compensation', async (request, reply) => {
             },
             ReturnValues: 'UPDATED_NEW'
           };
-
+      
           await docClient.update(rewardUpdateParams).promise();
-
+      
+          if (rewardResult.Item.reward_count <= 25) {
+            const SNS = new AWS.SNS();
+            const topicArn = process.env.TOPICARN;
+            const message = `${rewardResult.Item.reward_name} 보상이 부족합니다. 현재 보유 개수: ${rewardResult.Item.reward_count-1}`;
+            const params = {
+              TopicArn: topicArn,
+              Message: message
+            };
+            await SNS.publish(params).promise();
+          }
+      
           // Check if user is eligible for compensation
           const compensationTable = 'compensation';
           const rewardName = rewardResult.Item.reward_name;
+          const now = new Date();
+          const today = now.toISOString().substr(0, 10);
           const compensationGetParams = {
             TableName: compensationTable,
             Key: { email: email }
           };
-
+          
           try {
             const compensationResult = await docClient.get(compensationGetParams).promise();
             if (compensationResult.Item && compensationResult.Item.attendance_date === today) {
               reply.send(`${email}님은 오늘 이미 출석하셨습니다.`);
             } else {
-              const compensationPutParams = {
+              const attendanceSetParams = {
                 TableName: compensationTable,
-                Item: {
-                  email: email,
-                  reward_name: rewardName,
-                  attendance_date: today
-                }
+                Key: { email: email },
+                UpdateExpression: 'ADD reward_name :r SET attendance_date = :a',
+                ExpressionAttributeValues: {
+                  ':r': docClient.createSet([rewardName]),
+                  ':a': today
+                },
+                ReturnValues: 'UPDATED_NEW'
               };
-
-              await docClient.put(compensationPutParams).promise();
+              await docClient.update(attendanceSetParams).promise();
               reply.send(`${email}님의 출석 보상 ${rewardName}이(가) 지급되었습니다.`);
             }
           } catch (error) {
@@ -125,15 +141,4 @@ fastify.get('/compensation', async (request, reply) => {
     reply.send(`${email}님은 오늘 이미 출석하셨습니다.`);
   }
 });
-
-// fastify.listen({
-//   port: 3000,
-//   host: '0.0.0.0'
-// }, (err, address) => {
-//   if (err) {
-//     console.error(err)
-//     process.exit(1)
-//   }
-//   console.log(`Server listening on ${address}`)
-// })
 }
