@@ -1,8 +1,3 @@
-//exports.handler = async (event) => {
-// const email = event.email;
-//  console.log(email);
-//};
-
 const mysql = require('mysql2/promise');
 const AWS = require('aws-sdk');
 const sqs = new AWS.SQS();
