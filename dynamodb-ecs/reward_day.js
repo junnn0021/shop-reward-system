@@ -5,16 +5,17 @@ AWS.config.update({
     });
 const docClient = new AWS.DynamoDB.DocumentClient();
 
-
 module.exports = async function (fastify, options) {
+
 fastify.get('/reward_day', async (request, reply) => {
     const params = {
       TableName: 'user',
       KeyConditionExpression: 'email = :email',
       ExpressionAttributeValues: {
-          ':email': 'aaa@bbb.ccc'
+          ':email': request.query.Customer_Email
       }
     };
+    console.log(params)
 
     try {
       const data = await docClient.query(params).promise();
@@ -52,16 +53,4 @@ fastify.get('/reward_day', async (request, reply) => {
       reply.code(500).send('Internal Server Error');
     }
   });
-
-
-  // fastify.listen({
-  //   port: 3000,
-  //   host: '0.0.0.0'
-  // }, (err, address) => {
-  //   if (err) {
-  //     console.error(err)
-  //     process.exit(1)
-  //   }
-  //   console.log(`Server listening on ${address}`)
-  // })
 }

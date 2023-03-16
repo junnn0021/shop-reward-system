@@ -6,14 +6,16 @@ AWS.config.update({
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports = async function (fastify, options) {
+
 fastify.get('/', async (request, reply) => {
   const params = {
     TableName: 'user',
     KeyConditionExpression: 'email = :email',
     ExpressionAttributeValues: {
-    ':email': 'aaa@bbb.ccc'
+    ':email': request.query.Customer_Email
     }
   };
+  console.log(params)
 
   try {
     const data = await docClient.query(params).promise();
@@ -25,7 +27,7 @@ fastify.get('/', async (request, reply) => {
 });
 
 fastify.get('/compensation', async (request, reply) => {
-  const email = 'aaa@bbb.ccc';
+  const email = request.query.Customer_Email;
 
   const getParams = {
     TableName: 'user',
@@ -85,7 +87,7 @@ fastify.get('/compensation', async (request, reply) => {
       
           if (rewardResult.Item.reward_count <= 25) {
             const SNS = new AWS.SNS();
-            const topicArn = 'arn주소입력';
+            const topicArn = process.env.TOPICARN;
             const message = `${rewardResult.Item.reward_name} 보상이 부족합니다. 현재 보유 개수: ${rewardResult.Item.reward_count-1}`;
             const params = {
               TopicArn: topicArn,
