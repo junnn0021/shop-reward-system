@@ -1,6 +1,14 @@
 const AWS = require('aws-sdk');
-const ses = new AWS.SES();
-const dynamodb = new AWS.DynamoDB.DocumentClient();
+const nodemailer = require('nodemailer');
+const ses = new AWS.SES({
+  endpoint: process.env.ENDPOINT
+  // endpoint: 'vpce-01984a4efad70611f-orh7rxhg.email-smtp.ap-northeast-2.vpce.amazonaws.com'
+  // endpoint: 'vpce-01984a4efad70611f-orh7rxhg-ap-northeast-2a.email-smtp.ap-northeast-2.vpce.amazonaws.com'
+});
+const dynamodb = new AWS.DynamoDB.DocumentClient({
+    // endpoint: 'vpce-0475e97ff8c207147-com.amazonaws.ap-northeast-2.dynamodb',
+    // region: 'ap-northeast-2'
+});
 
 exports.handler = async (event) => {
   try {
@@ -18,6 +26,7 @@ exports.handler = async (event) => {
     const params = {
       Identities: emailAddresses
     };
+    console.log(params)
     const verificationStatus = await ses.getIdentityVerificationAttributes(params).promise();
 
     const unverifiedEmails = emailAddresses.filter(email => {
