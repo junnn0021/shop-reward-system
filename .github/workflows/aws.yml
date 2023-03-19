@@ -2,13 +2,15 @@ name: Deploy to Amazon ECS
 
 on:
   push:
-    branches: [ son_donghoon ]
+    branches:  
+     - son_donghoon
     paths:
-      - '/dynamodb-ecs/**'
+      - './dynamodb-ecs/**'
   pull_request:
-    branches: [ main ]
+    branches: 
+      - main
     paths:
-      - '/dynamodb-ecs/**'
+      - './dynamodb-ecs/**'
 
 env:
   AWS_REGION: ap-northeast-2                                 # set this to your preferred AWS region, e.g. us-west-1
