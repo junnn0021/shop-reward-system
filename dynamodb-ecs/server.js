@@ -15,4 +15,3 @@ const start = async () => {
 }
 
 start()
-//CICD테스트를 위한 커밋 푸쉬
