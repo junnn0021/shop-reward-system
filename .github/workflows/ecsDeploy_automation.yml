@@ -2,13 +2,11 @@ name: Deploy to Amazon ECS
 
 on:
   push:
-    branches: 
-      - son_donghoon
+    branches: [ son_donghoon ]
     paths:
       - ./dynamodb-ecs/
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
     paths:
       - ./dynamodb-ecs/
 
