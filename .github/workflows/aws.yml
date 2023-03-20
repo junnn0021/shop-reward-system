@@ -3,14 +3,14 @@ name: Deploy to Amazon ECS
 on:
   push:
     branches:  
-     - son_donghoon
+     - main
     paths:
-      - '../../dynamodb-ecs/**'
+      - 'dynamodb-ecs/**'
   pull_request:
     branches: 
       - main
     paths:
-      - '../../dynamodb-ecs/**'
+      - 'dynamodb-ecs/**'
 
 env:
   AWS_REGION: ap-northeast-2                                 # set this to your preferred AWS region, e.g. us-west-1
@@ -19,7 +19,7 @@ env:
   ECS_CLUSTER: attendance_ECS                                # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: ./dynamodb-ecs/task-definition.json   # set this to the path to your Amazon ECS task definition
                                                              # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: attendance_container                       # set this to the name of the container in the
+  CONTAINER_NAME: teamd_container                            # set this to the name of the container in the
                                                              # containerDefinitions section of your task definition
 
 permissions:
