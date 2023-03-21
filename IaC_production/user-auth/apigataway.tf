@@ -95,8 +95,15 @@ resource "aws_api_gateway_method_response" "purchase_method_response" {
 }
 
 resource "aws_api_gateway_deployment" "my_api_deployment" {
+<<<<<<< HEAD
   rest_api_id = aws_api_gateway_rest_api.please.id
   stage_description = "test"
   stage_name        = "test"
   depends_on        = [aws_api_gateway_integration_response.auth_integration_response, aws_api_gateway_method_response.auth_method_response, aws_api_gateway_integration_response.purchase_integration_response, aws_api_gateway_method_response.purchase_method_response]
+=======
+  rest_api_id = aws_api_gateway_rest_api.example.id
+  stage_description = "test"
+  stage_name        = "test"
+  depends_on        = [aws_api_gateway_integration_response.auth_integration_response, aws_api_gateway_method_response.auth_method_response]
+>>>>>>> 9fd9d1b14779854a6221526e470729f39154729d
 }
