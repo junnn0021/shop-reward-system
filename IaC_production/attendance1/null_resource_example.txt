@@ -1,0 +1,61 @@
+resource "null_resource" "temporary_nat_gateway_deletion" {
+  depends_on = [aws_nat_gateway.temporary_nat_gateway]
+  provisioner "local-exec" {
+    command = "sleep 600 && terraform destroy -target=aws_nat_gateway.temporary_nat_gateway"
+  }
+}
+
+resource "null_resource" "temporary_nat_gateway_deletion" {
+  depends_on = [aws_nat_gateway.temporary_nat_gateway]
+  triggers = {
+    id = aws_nat_gateway.temporary_nat_gateway.id    # to execute it every time replace - id = time()
+  }
+  provisioner "local-exec" {
+    command = "nohup sleep 60 && terraform destroy -target=aws_nat_gateway.temporary_nat_gateway > destroy.log 2>&1 &"
+  }
+}
+
+Wait for 10 minutes before destroying the temporary NAT gateway
+
+
+
+locals {
+  delay = 1 * 60 # seconds
+}
+
+resource "null_resource" "temporary_nat_gateway_deletion" {
+  triggers = {
+    nat_gateway_id = aws_nat_gateway.temporary_nat_gateway.id
+  }
+
+  provisioner "local-exec" {
+    command = "terraform destroy -target=aws_nat_gateway.temporary_nat_gateway"
+    when    = destroy
+
+    # Wait for 10 minutes before destroying the NAT gateway
+  }
+}
+
+resource "null_resource" "temporary_eip_deletion" {
+  depends_on = [aws_eip.temporary_eip]
+  provisioner "local-exec" {
+    command = "sleep 600 && terraform destroy -target=aws_eip.temporary_eip"
+  }
+}
+
+Wait for 10 minutes before destroying the temporary NAT gateway
+locals {
+  delay = 1 * 60 # seconds
+}
+
+resource "null_resource" "temporary_nat_gateway_destroy" {
+  triggers = {
+    apply_time = timestamp()
+    # nat_gateway_id = aws_nat_gateway.temporary_nat_gateway.id
+  }
+   depends_on = [aws_nat_gateway.temporary_nat_gateway]
+
+  provisioner "local-exec" {
+    command = "sleep 60 && terraform destroy -target=aws_nat_gateway.temporary_nat_gateway"
+  }
+}
