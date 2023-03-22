@@ -10,7 +10,7 @@ resource "aws_ecr_repository" "attendance_ecr" {
 
 # Secret Manager ARN 참조
 data "aws_secretsmanager_secret" "access_data" {
-  arn = aws_secretsmanager_secret.DynamoAccess_secrets.arn
+  arn = aws_secretsmanager_secret.Dynamo_secrets_key.arn
 }
 
 # Task-definition 작성

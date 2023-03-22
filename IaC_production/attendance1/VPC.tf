@@ -3,6 +3,10 @@ resource "aws_vpc" "attendanceVPC_s" {
   cidr_block = var.vpc_cidr_block
   tags = {
     Name = "attendanceVPC_s"}
+  enable_dns_support = true
+  enable_dns_hostnames = true
+  enable_network_address_usage_metrics = true
+
 }
 
 # Public_At_Entrance 서브넷 생성
@@ -98,10 +102,6 @@ resource "aws_vpc_endpoint" "attendance_endpoint_s" {
 resource "aws_route_table" "routeTable_Service_s" {
   vpc_id = aws_vpc.attendanceVPC_s.id
   
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.temporary_nat_gateway.id
-  }
   tags = {
     Name = "routeTable_Service_s"
   }
