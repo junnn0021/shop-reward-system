@@ -1,7 +1,7 @@
 # Public 보안그룹 생성 (SSH, HTTP, busybox allow)
 resource "aws_security_group" "attendance_securityGroup_s" {
   name        = "attendance_securityGroup_s"
-  description = "attendance 보안 그룹"
+  description = "attendance securityGroup"
   vpc_id      = aws_vpc.attendanceVPC_s.id
 
   ingress {
