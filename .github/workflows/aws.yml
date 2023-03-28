@@ -14,12 +14,12 @@ on:
 
 env:
   AWS_REGION: ap-northeast-2                                 # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: teamd_ecr                                  # set this to your Amazon ECR repository name
-  ECS_SERVICE: attendance_svcc                               # set this to your Amazon ECS service name
-  ECS_CLUSTER: attendance_ECS                                # set this to your Amazon ECS cluster name
+  ECR_REPOSITORY: attendance_ecr                             # set this to your Amazon ECR repository name
+  ECS_SERVICE: attendance_svc_teamd                          # set this to your Amazon ECS service name
+  ECS_CLUSTER: attendance_ECS_teamd                          # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: ./dynamodb-ecs/task-definition.json   # set this to the path to your Amazon ECS task definition
                                                              # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: teamd_container                            # set this to the name of the container in the
+  CONTAINER_NAME: attendance_container_teamd                 # set this to the name of the container in the
                                                              # containerDefinitions section of your task definition
 
 permissions:
