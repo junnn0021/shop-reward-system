@@ -1,13 +1,13 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:758733530144:task-definition/teamd_task_definition:14",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:758733530144:task-definition/attendance_task_definition_teamd:4",
     "containerDefinitions": [
         {
-            "name": "teamd_container",
-            "image": "758733530144.dkr.ecr.ap-northeast-2.amazonaws.com/teamd_ecr:1.7",
+            "name": "attendance_container_teamd",
+            "image": "758733530144.dkr.ecr.ap-northeast-2.amazonaws.com/attendance_ecr:latest",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "teamd_container-3000-tcp",
+                    "name": "attendance_container_teamd-3000-tcp",
                     "containerPort": 3000,
                     "hostPort": 3000,
                     "protocol": "tcp",
@@ -18,38 +18,37 @@
             "environment": [
                 {
                     "name": "TOPICARN",
-                    "value": "arn:aws:sns:ap-northeast-2:758733530144:stock_notification"
+                    "value": "arn:aws:sns:ap-northeast-2:758733530144:stock_notification_s"
                 }
             ],
+            "mountPoints": [],
+            "volumesFrom": [],
             "secrets": [
                 {
                     "name": "AWS_ACCESS_KEY_ID",
-                    "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:758733530144:secret:teamd_aws_access-62AJkl:AWS_ACCESS_KEY_ID::"
+                    "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:758733530144:secret:Dynamo_Final_secrets-XggO98:AWS_ACCESS_KEY_ID::"
                 },
                 {
                     "name": "AWS_SECRET_ACCESS_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:758733530144:secret:teamd_aws_access-62AJkl:AWS_SECRET_ACCESS_KEY::"
+                    "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:758733530144:secret:Dynamo_Final_secrets-XggO98:AWS_SECRET_ACCESS_KEY::"
                 }
             ],
-            "environmentFiles": [],
-            "mountPoints": [],
-            "volumesFrom": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/teamd_task_definition",
+                    "awslogs-group": "/ecs/attendance_task_definition_teamd",
                     "awslogs-region": "ap-northeast-2",
                     "awslogs-stream-prefix": "ecs"
                 }
             }
         }
     ],
-    "family": "teamd_task_definition",
-    "taskRoleArn": "arn:aws:iam::758733530144:role/ecsTaskExecutionRole",
-    "executionRoleArn": "arn:aws:iam::758733530144:role/ecsTaskExecutionRole",
+    "family": "attendance_task_definition_teamd",
+    "taskRoleArn": "arn:aws:iam::758733530144:role/ecsTaskExecutionRole_teamd",
+    "executionRoleArn": "arn:aws:iam::758733530144:role/ecsTaskExecutionRole_teamd",
     "networkMode": "awsvpc",
-    "revision": 14,
+    "revision": 4,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -64,6 +63,9 @@
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "ecs.capability.secrets.asm.environment-variables"
         },
         {
             "name": "com.amazonaws.ecs.capability.task-iam-role"
@@ -95,7 +97,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-03-16T08:27:47.689Z",
+    "registeredAt": "2023-03-28T11:20:21.348Z",
     "registeredBy": "arn:aws:iam::758733530144:user/Son_Donghoon",
     "tags": []
 }
