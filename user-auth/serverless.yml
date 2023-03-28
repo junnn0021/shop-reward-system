@@ -1,0 +1,21 @@
+service: user-auth
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-northeast-2
+
+functions:
+  auth:
+    handler: index.auth
+    events:
+      - http:
+          path: auth
+          method: any
+  purchase:
+    handler: index.purchase
+    events:
+      - http:
+          path: purchase
+          method: any

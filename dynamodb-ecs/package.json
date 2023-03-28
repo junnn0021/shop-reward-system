@@ -1,0 +1,15 @@
+{
+  "name": "dynamodb-ecs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1336.0",
+    "fastify": "^4.14.1"
+  }
+}
