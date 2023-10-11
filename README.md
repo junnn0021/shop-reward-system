@@ -3,7 +3,7 @@
 손동훈 : [Sondoobo](https://github.com/Sondoobo) | 이준석 : [junnn0021](https://github.com/junnn0021) | 이인홍 : [Bleep-H3](https://github.com/Bleep-H3) | 현수빈 : [numberbeen](https://github.com/numberbeen) | 
  --- | --- | --- | --- |
 
- - Duration : 2022.03.07 ~ 2022.03.24
+ - Duration : 2023.03.07 ~ 2023.03.24
 <br>
 
 ## Summary
