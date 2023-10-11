@@ -1,4 +1,4 @@
-## Team : 上남자들
+![image](https://github.com/junnn0021/shop-reward-system/assets/119108967/405053ed-2a98-4dd4-873a-b825a0fbf722)## Team : 上남자들
  
 손동훈 : [Sondoobo](https://github.com/Sondoobo) | 이준석 : [junnn0021](https://github.com/junnn0021) | 이인홍 : [Bleep-H3](https://github.com/Bleep-H3) | 현수빈 : [numberbeen](https://github.com/numberbeen) | 
  --- | --- | --- | --- |
@@ -85,6 +85,7 @@
  - ECS : 출석에 대한 기능과 리워드에 대한 기능을 모두 수행하는 메인 서버이기에 Lambda보다는 큰 규모의 컨테이너 단위로 구성하기 위해 ECS를 사용하였습니다.
  - VPC endpoint(Interface) : NAT Gateway를 통해 아웃바운드되는 data의 양을 감소시키므로써 보다 비용 효율적인 서비스 구성을 위해 구성하였습니다.
  - Secrets Manager : 애플리케이션 단위에서 DB에 접근할 수 있는 비밀번호를 소유하지 못하도록 Secrets Manager를 통해 참조형으로 구성하였습니다.
+ - 아키텍처 구현 과정 : [Notion](https://www.notion.so/Final-Project-Team-D-b8582dc562104aa2a11de017e9087d23)
  
 <br>
 
