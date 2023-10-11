@@ -1,4 +1,4 @@
-![image](https://github.com/junnn0021/shop-reward-system/assets/119108967/405053ed-2a98-4dd4-873a-b825a0fbf722)## Team : 上남자들
+## Team : 上남자들
  
 손동훈 : [Sondoobo](https://github.com/Sondoobo) | 이준석 : [junnn0021](https://github.com/junnn0021) | 이인홍 : [Bleep-H3](https://github.com/Bleep-H3) | 현수빈 : [numberbeen](https://github.com/numberbeen) | 
  --- | --- | --- | --- |
