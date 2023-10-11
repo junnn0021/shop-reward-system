@@ -1,15 +1,12 @@
-# 🏷️ devops-03-Final-TeamD
-<br>
-
- - Team : 上남자들
+## Team : 上남자들
  
- 손동훈 : [Sondoobo](https://github.com/Sondoobo) | 이준석 : [junnn0021](https://github.com/junnn0021) | 이인홍 : [Bleep-H3](https://github.com/Bleep-H3) | 현수빈 : [numberbeen](https://github.com/numberbeen) | 
+손동훈 : [Sondoobo](https://github.com/Sondoobo) | 이준석 : [junnn0021](https://github.com/junnn0021) | 이인홍 : [Bleep-H3](https://github.com/Bleep-H3) | 현수빈 : [numberbeen](https://github.com/numberbeen) | 
  --- | --- | --- | --- |
 
  - Duration : 2022.03.07 ~ 2022.03.24
 <br>
 
-## 📖 Summary
+## Summary
 
 충성 고객에 대한 데일리 출석 이벤트를 제공하여, 꾸준히 방문 인증을 하는 고객에 대해 리워드를 제공하는 것이 목표이다.
 기존에 잘 운영되고 있던 쇼핑몰 사이트 위에 데일리 출석 이벤트를 위해 별도의 시스템을 구축하고자 한다.
@@ -17,7 +14,7 @@
 
 <br>
 
-## 👉 쇼핑몰 구매고객 리워드 시스템
+## 쇼핑몰 구매고객 리워드 시스템
 
 #### 출석 요구사항
 - 출석 인증 요청, 구매 내역 확인 요청 발생 시 인증정보 확인은 필수입니다.
@@ -47,7 +44,7 @@
 
 <br>
 
-## 📚 Description
+## Description
 
 1. 인증 서비스
 
@@ -80,7 +77,7 @@
  - 지금까지 특정 고객이 수령한 상품 모두를 조회할 수 있습니다.
 <br>
 
-## 🖼️ Architecture
+## Architecture
 <img src="https://user-images.githubusercontent.com/119108967/228255931-00d1c93c-480e-45f7-9445-9baeae57a3e5.png" width="1000" height="800"/>
 <img src="https://user-images.githubusercontent.com/119108967/228256085-ae1d6e6d-219b-4b1c-9c1e-0674e83fd12b.png" width="1000" height="700"/>
 
@@ -91,22 +88,19 @@
  
 <br>
 
-## 🛠️ Environment
-<div align=center>
-<img src="https://img.shields.io/badge/AWS-232F3E?stylefor-the-badge&logo=Amazon AWS&logoColor=FAFAFA"/>
-<img src="https://img.shields.io/badge/Docker-004B8D?stylefor-the-badge&logo=Docker&logoColor=2496ED"/>
+## Environment
+<img src="https://img.shields.io/badge/AWS-232F3E?stylefor-the-badge&logo=Amazon AWS&logoColor=FAFAFA"/> <img src="https://img.shields.io/badge/Docker-004B8D?stylefor-the-badge&logo=Docker&logoColor=2496ED"/>
 <img src="https://img.shields.io/badge/Fastify-000000?stylefor-the-badge&logo=Fastify&logoColor=FAFAFA"/>
 <img src="https://img.shields.io/badge/GitHub Actions-000000?stylefor-the-badge&logo=GitHub Actions&logoColor=2088FF"/>
 <img src="https://img.shields.io/badge/Grafana-FF9E0F?stylefor-the-badge&logo=Grafana&logoColor=F46800"/>
-<br>
 <img src="https://img.shields.io/badge/MySQL-071D49?stylefor-the-badge&logo=MySQL&logoColor=4479A1"/>
 <img src="https://img.shields.io/badge/Node.js-173B3F?stylefor-the-badge&logo=Node.js&logoColor=339933"/>
 <img src="https://img.shields.io/badge/Serverless-000000?stylefor-the-badge&logo=Serverless&logoColor=FD5750"/>
 <img src="https://img.shields.io/badge/Terraform-77216F?stylefor-the-badge&logo=Terraform&logoColor=7B42BC"/>
- </div>
+
  <br>
 
-## 🖥️ Prerequisites
+## Prerequisites
 AWS 배포 자동화를 구현하기 위해서는 AWS에 계정이 있어야 합니다.
 ```
 https://aws.amazon.com/ko/
@@ -132,7 +126,7 @@ source init.sql
 ```
 <br>
 
-## 🔖 example of use
+## Example of use
 #### 인증 서비스
 1. 가입된 이메일이 아닐 경우
 
