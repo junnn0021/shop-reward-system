@@ -94,7 +94,7 @@
 <img src="https://img.shields.io/badge/Fastify-000000?stylefor-the-badge&logo=Fastify&logoColor=FAFAFA"/>
 <img src="https://img.shields.io/badge/GitHub Actions-2088FF?stylefor-the-badge&logo=GitHub Actions&logoColor=FAFAFA"/>
 <img src="https://img.shields.io/badge/Grafana-F46800?stylefor-the-badge&logo=Grafana&logoColor=FAFAFA"/>
-<img src="https://img.shields.io/badge/MySQL-4479A1?stylefor-the-badge&logo=MySQL&logoColor=FAFAFA"/>
+ <img src="https://img.shields.io/badge/MySQL-4479A1?style=stylefor-the-badge&logo=MySQL&logoColor=FAFAFA"/>
 <img src="https://img.shields.io/badge/Node.js-339933?stylefor-the-badge&logo=Node.js&logoColor=FAFAFA"/>
 <img src="https://img.shields.io/badge/Serverless-FD5750?stylefor-the-badge&logo=Serverless&logoColor=FAFAFA"/>
 <img src="https://img.shields.io/badge/Terraform-844FBA?stylefor-the-badge&logo=Terraform&logoColor=FAFAFA"/>
